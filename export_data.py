@@ -8,7 +8,7 @@ profile_id = creds.profile_id
 # Provided URL to fetch specific game data from my profile
 url = (
     f"https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/"
-    f"?key={api_key}&steamid={profile_id}&include_appinfo=1&format=json"
+    f"?key={api_key}&steamid={profile_id}&include_appinfo=1&include_played_free_games=1&format=json"
 )
 
 
