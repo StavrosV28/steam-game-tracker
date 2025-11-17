@@ -17,14 +17,16 @@ headers = {
 }
 
 response = requests.request("GET", url, headers=headers, data=[])
-my_json = response.json()
-our_data = []
+response_json = response.json()
+
+data = []
+
 csv_header = ['APP_ID', 'NAME', 'IMG_ICON', 'PLAYTIME', 'LAST_PLAYED']
 
-game_count = my_json['response']['game_count']
+game_count = response_json['response']['game_count']
 
-for x in my_json['response']['games']:
-    listing = [
+for x in response_json['response']['games']:
+    parsed_data = [
         x['appid'],
         x['name'],
         x['img_icon_url'],
@@ -32,13 +34,13 @@ for x in my_json['response']['games']:
         x['rtime_last_played'],
         game_count]
     
-    our_data.append(listing)
+    data.append(parsed_data)
 
 with open('my_steam.csv', 'w', encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
     
     writer.writerow(csv_header)
-    writer.writerows(our_data)
+    writer.writerows(data)
 
 print('All good')
 
