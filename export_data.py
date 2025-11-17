@@ -19,7 +19,7 @@ headers = {
 response = requests.request("GET", url, headers=headers, data=[])
 my_json = response.json()
 our_data = []
-
+csv_header = ['APP_ID', 'NAME', 'IMG_ICON', 'PLAYTIME', 'LAST_PLAYED']
 
 game_count = my_json['response']['game_count']
 
@@ -34,6 +34,11 @@ for x in my_json['response']['games']:
     
     our_data.append(listing)
 
+with open('my_steam.csv', 'w', encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    
+    writer.writerow(csv_header)
+    writer.writerows(our_data)
 
-print(our_data)
+print('All good')
 
