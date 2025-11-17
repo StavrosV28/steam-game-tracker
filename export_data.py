@@ -1,5 +1,6 @@
 import requests
 import csv
+import datetime
 import creds
 
 api_key = creds.steam_api
@@ -24,19 +25,23 @@ response_json = response.json()
 data = []
 
 # Provide organization for CSV file
-csv_header = ['app_id', 'name', 'img_icon', 'playtime', 'last_played']
+csv_header = ['app_id', 'name', 'img_icon', 'playtime(hrs)', 'last_played']
 
 # Just to showcase total games owned
 game_count = response_json['response']['game_count']
 
 # Go through response and extract the specified keys
 for x in response_json['response']['games']:
+    last_played = x.get('rtime_last_played', 0)
+    # converts UNIX timestamp from SteamAPI to readable calendar date
+    calendar_date = datetime.datetime.fromtimestamp(last_played).strftime('%Y-%m-%d')
+    
     parsed_data = [
         x['appid'],
         x['name'],
         x['img_icon_url'],
         round(x['playtime_forever'] / 60, 1),
-        round(x['rtime_last_played'] / 60, 1),
+        calendar_date,
         game_count]
     
     data.append(parsed_data)
