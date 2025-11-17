@@ -24,7 +24,7 @@ response_json = response.json()
 data = []
 
 # Provide organization for CSV file
-csv_header = ['APP_ID', 'NAME', 'IMG_ICON', 'PLAYTIME', 'LAST_PLAYED']
+csv_header = ['app_id', 'name', 'img_icon', 'playtime', 'last_played']
 
 # Just to showcase total games owned
 game_count = response_json['response']['game_count']
@@ -35,8 +35,8 @@ for x in response_json['response']['games']:
         x['appid'],
         x['name'],
         x['img_icon_url'],
-        x['playtime_forever'],
-        x['rtime_last_played'],
+        round(x['playtime_forever'] / 60, 1),
+        round(x['rtime_last_played'] / 60, 1),
         game_count]
     
     data.append(parsed_data)
