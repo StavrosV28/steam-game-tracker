@@ -41,8 +41,7 @@ for x in response_json['response']['games']:
         x['name'],
         x['img_icon_url'],
         round(x['playtime_forever'] / 60, 1),
-        calendar_date,
-        game_count]
+        calendar_date]
     
     data.append(parsed_data)
 
